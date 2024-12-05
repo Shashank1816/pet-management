@@ -1,0 +1,45 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-mvc-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-mvc-app
+  template:
+    metadata:
+      labels:
+        app: spring-mvc-app
+    spec:
+      containers:
+      - name: spring-mvc-app 
+        image: ${{inputs.my-image-name}}
+        ports:
+        - containerPort: 8080
+          name: http
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "production"
+        resources:
+          requests:
+            cpu: 250m
+            memory: 512Mi
+          limits:
+            cpu: 500m
+            memory: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-mvc-app
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  selector:
+    app: spring-mvc-app
