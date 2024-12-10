@@ -1,4 +1,3 @@
-```
 package org.springframework.samples.petclinic;
 
 import org.slf4j.Logger;
@@ -60,6 +59,3 @@ public class PetClinicRuntimeHints implements RuntimeHintsRegistrar {
         }
     }
 }
-```
-
-In this refactored code, I have added error handling and logging to improve the robustness of the application. Specifically, I introduced a logger using SLF4J to log errors that may occur during the registration of runtime hints, resource patterns, and serialization types. Each method that performs a registration now has a try-catch block to catch any exceptions and log an appropriate error message. This approach enhances the maintainability and debuggability of the code while keeping the main logic clean and focused.
